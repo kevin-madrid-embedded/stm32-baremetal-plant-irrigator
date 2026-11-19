@@ -1,13 +1,17 @@
 #include "timer_driver.h"
 #include <led/led_driver.h>
+#include <usart/usart.h>
+#include <infrastructure/event_queue/event_queue.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/rtc.h>
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/cm3/systick.h>
 #include <libopencm3/cm3/nvic.h>
 
+
 // Global millisecond counter, incremented by SysTick
 static volatile uint32_t _ms_ticks = 0;
+
 
 uint32_t timer_now_ms(void) {
     return _ms_ticks;
