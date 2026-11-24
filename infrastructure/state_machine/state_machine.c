@@ -29,7 +29,7 @@ typedef enum{
 } EVENTS;
 
 
-typedef void (*fptr_t)(void *context);
+typedef void (*fptr_t)(void);
 
 typedef struct state_finite_machine{
     STATES current_state;
@@ -116,7 +116,7 @@ void fsm_run ( SYSTEM_CONTEXT_T *sys){
             if(fsm_table[i].current_state == sys->current_state && 
                     fsm_table[i].event == (EVENTS)ev){
                 if(fsm_table[i].action != NULL){
-                    fsm_table[i].action; 
+                    fsm_table[i].action(); 
                 }
                 sys->current_state = fsm_table[i].new_state;
                 return;
@@ -136,6 +136,7 @@ void action_hardware_init(void){
     usart_write("System start: ", timer_now_ms());              
     watchdog_start();
     queue_init(&queue);
+    blinking_led();
     queue_push(&queue, EV_INIT_COMPLETE);
 }
 

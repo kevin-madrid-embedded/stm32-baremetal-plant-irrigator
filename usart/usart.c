@@ -3,8 +3,12 @@
 #include <libopencm3/stm32/usart.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "usart.h"
 
-
+static void clock_setup(void);
+static void usart_setup(void);
+static void uart_putc(char c);
+static void uart_puts(const char *str);
 
 static void clock_setup(void)
 {
